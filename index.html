@@ -459,7 +459,7 @@ button.sprow:active{background:var(--ruby-lt)}
     <b>Important reminders</b>
     <ul>
       <li>This simulator is for <b>education and illustration only</b>. It is not financial, investment, tax or legal advice.</li>
-      <li>Projections are <b>historical simulations only</b>, based on the past 10-year average returns of benchmarks (1-year T-bill, 10-year government securities, S&amp;P 500) and on the past performance of the funds in their KIIDS and fund fact sheets (September 30, 2026).</li>
+      <li>Projections are <b>historical simulations only</b>, based on the past average returns of benchmarks (1-year T-bill and S&amp;P 500 over 10 years; Bloomberg Global Aggregate Bond Index over 3 years) and on the past performance of the funds in their KIIDS and fund fact sheets (September 30, 2026).</li>
       <li>Results are <b>not guaranteed</b>. Past performance is not a guarantee of future results. The value of an investment can go up or down, and <b>you can lose money</b>.</li>
       <li>UITFs and mutual funds are <b>NOT deposit products</b>, are not guaranteed by BPI or BPI Wealth, and are <b>not insured by the PDIC</b>.</li>
       <li>Inflation, returns and other assumed numbers are estimates only. What actually happens may differ.</li>
@@ -614,7 +614,7 @@ button.sprow:active{background:var(--ruby-lt)}
     <div class="sec-t" style="margin-top:6px">1. Choose your risk level<small>How comfortable are you with ups and downs in value?</small></div>
     <div id="riskWrap" class="risk3">
       <button data-r="st"><span class="lv" style="background:#E9D9A6"></span><b>Low risk</b><span class="fn">Past avg. 3.9%/yr</span></button>
-      <button data-r="gb"><span class="lv" style="background:var(--gold)"></span><b>Medium risk</b><span class="fn">Past avg. 4.75%/yr</span></button>
+      <button data-r="gb"><span class="lv" style="background:var(--gold)"></span><b>Medium risk</b><span class="fn">Past avg. 3.98%/yr</span></button>
       <button data-r="us"><span class="lv" style="background:var(--ruby)"></span><b>High risk</b><span class="fn">Past avg. 13.44%/yr</span></button>
     </div>
     <div id="hzWarn"></div>
@@ -631,7 +631,7 @@ button.sprow:active{background:var(--ruby-lt)}
     </div>
 
 
-    <div class="discl"><b>Reminder:</b> Illustration only, <b>not a guarantee</b>. Rates are past 10-year benchmark averages (1-year T-bill 3.9%, 10-year gov't securities 4.75%, S&amp;P 500 in USD 13.44%), not fund returns. <b>Investments can lose value.</b> UITFs and mutual funds are not deposits and are not PDIC-insured. Get risk-profiled by a BPI Wealth advisor before investing.</div>
+    <div class="discl"><b>Reminder:</b> Illustration only, <b>not a guarantee</b>. Rates are past benchmark averages: 1-year T-bill 3.9% (10 years), Bloomberg Global Aggregate Bond Index 3.98% (3 years, 2023–2025, USD) and S&amp;P 500 13.44% (10 years, USD). They are not fund returns. <b>Investments can lose value.</b> UITFs and mutual funds are not deposits and are not PDIC-insured. Get risk-profiled by a BPI Wealth advisor before investing.</div>
   </div>
   <div class="row"><button class="btn gold" onclick="printReport()">Save as PDF</button><button class="btn pri" data-go="p-port">Sample Portfolio →</button></div>
 </section>
@@ -769,7 +769,7 @@ const PERA_LIMIT = 200000, PERA_LIMIT_OFW = 400000, PERA_CREDIT = 0.05;
 const AS_OF = "Sept 30, 2026";
 /* Goal-plan returns by risk level (10-year averages). Low: PH 364-day T-bill 2016–2025 (2024–25 estimated from auctions); Medium: 10-yr GS; High: S&P 500 10-yr annualized total return (S&P Global, Sept 2026, USD) */
 const RISK = { st:{rate:3.9, lvl:"Low risk", basis:"10-year average of the 1-year T-bill"},
-               gb:{rate:4.75, lvl:"Medium risk", basis:"10-year average of 10-year government securities"},
+               gb:{rate:3.98, lvl:"Medium risk", basis:"3-year average of the Bloomberg Global Aggregate Bond Index"},
                us:{rate:13.44, lvl:"High risk", basis:"10-year average of the S&P 500"} };
 /* Fund data from the Sept 30, 2026 KIIDS / fund fact sheets. sim = return used in each fund's own simulator (historical). */
 const FUNDS = {
@@ -971,7 +971,7 @@ function buildReport(){
     ${sp?`<p style="margin-bottom:6px"><b>${sp.m.age}Y Model · ${sp.m.profile}</b> · for age ${sp.age}${sp.amt?` · amount to invest ${peso(sp.amt)}`:""}</p>
     <table class="rpt">${sp.rows.map(x=>`<tr><td>${x[0]} <span style="color:#7A6A6C">(${AC[x[1]][0]})</span></td><td style="width:10%">${x[2]}%</td><td style="width:22%">${sp.amt?peso(x[3]):"—"}</td></tr>`).join("")}
     ${sp.amt?`<tr><td><b>Total</b></td><td>100%</td><td>${peso(sp.amt)}</td></tr>`:""}</table>`:`<p>No age entered for the sample portfolio.</p>`}
-    <div class="rdisc"><b>Reminder:</b> For education and illustration only; not financial advice and <b>not a guarantee</b>. Rates are past 10-year benchmark averages (T-bill 3.9%, 10-yr gov't securities 4.75%, S&P 500 in USD 13.44%), not fund returns. The sample portfolio follows BPI Wealth's model portfolios and is not a recommendation. Investments can lose value. UITFs and mutual funds are not deposits and are not PDIC-insured. Get risk-profiled by a BPI Wealth advisor before investing.</div>
+    <div class="rdisc"><b>Reminder:</b> For education and illustration only; not financial advice and <b>not a guarantee</b>. Rates are past benchmark averages: T-bill 3.9% (10 yrs), Bloomberg Global Aggregate Bond Index 3.98% (3 yrs, 2023–2025, USD), S&P 500 13.44% (10 yrs, USD). They are not fund returns. The sample portfolio follows BPI Wealth's model portfolios and is not a recommendation. Investments can lose value. UITFs and mutual funds are not deposits and are not PDIC-insured. Get risk-profiled by a BPI Wealth advisor before investing.</div>
   </div>`;
   $("report").innerHTML=p2;
 }
@@ -1156,9 +1156,11 @@ function show(p){
 }
 document.querySelectorAll("[data-p],[data-go]").forEach(b=>b.addEventListener("click",()=>show(b.dataset.p||b.dataset.go)));
 
-const growLump=(L,r,yrs)=>L*Math.pow(1+r/12,Math.round(yrs*12));
-const fvm=(m,r,yrs)=>{ const i=r/12,n=Math.round(yrs*12); return i?m*(Math.pow(1+i,n)-1)/i:m*n; };
-const pmtFor=(fv,r,yrs)=>{ const i=r/12,n=Math.round(yrs*12); return fv<=0?0:(i?fv*i/(Math.pow(1+i,n)-1):fv/n); };
+/* Conservative monthly rate: 12 months compound to exactly the yearly rate */
+const mRate=r=>Math.pow(1+r,1/12)-1;
+const growLump=(L,r,yrs)=>L*Math.pow(1+mRate(r),Math.round(yrs*12));
+const fvm=(m,r,yrs)=>{ const i=mRate(r),n=Math.round(yrs*12); return Math.abs(i)>1e-12?m*(Math.pow(1+i,n)-1)/i:m*n; };
+const pmtFor=(fv,r,yrs)=>{ const i=mRate(r),n=Math.round(yrs*12); return fv<=0?0:(Math.abs(i)>1e-12?fv*i/(Math.pow(1+i,n)-1):fv/n); };
 const stat=s=>s>=0.999?"good":s>=0.5?"ok":"bad";
 const LBL={good:"Looking great",ok:"Almost there",bad:"Needs attention"};
 const emptyBox=(t,s)=>`<div class="empty"><b>${t}</b>${s}<div class="row" style="justify-content:center"><button class="btn pri sm" style="flex:none" onclick="show('p-input')">Go to Your Money</button></div></div>`;
