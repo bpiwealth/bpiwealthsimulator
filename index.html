@@ -1024,9 +1024,7 @@ function openFund(k){
       </div>
       <div class="f"><label>How many years?</label><div class="range"><input type="range" id="fsYrs" min="1" max="40" value="${dy}"><output id="fsYrsO"></output></div></div>
       <div id="fsRes"></div>
-      <svg class="chart" id="fsChart" viewBox="0 0 340 170"></svg>
-      <div class="legend" id="fsLeg"><span><i style="background:var(--ruby)"></i>Estimated value</span><span><i style="background:#CDBFC1"></i>Total you put in</span></div>
-      <p class="fnote">Illustration only · Not guaranteed · Actual returns may be higher or lower, and you can lose money</p>
+      <p class="fnote">Illustration only · Not guaranteed · Actual returns go up and down from year to year, may be higher or lower, and you can lose money</p>
     </div>`:"";
   $("fvBody").innerHTML=`
     <div class="fvhero"><span class="rk">${f.level}</span><h3>${f.name}${f.cls?`<br><span style="font-size:14px;font-weight:600;opacity:.8">${f.cls}</span>`:""}</h3><p>${f.para}</p><span class="fit">For ${f.profile.toLowerCase()} investors · ${f.horizon}+ year${f.horizon>1?"s":""}</span></div>
@@ -1051,12 +1049,11 @@ function fsRender(){
   const f=FUNDS[curFund]; if(!f||f.sim==null||!$("fsNow")) return;
   const L=val("fsNow"), m=val("fsMo"), y=+$("fsYrs").value, r=f.sim/100;
   $("fsYrsO").innerHTML=yrsT(y);
-  if(!L&&!m){ $("fsRes").innerHTML=`<div class="sphint">Enter an amount to see how it could grow.</div>`; $("fsChart").innerHTML=""; $("fsChart").style.display="none"; $("fsLeg").style.display="none"; return; }
+  if(!L&&!m){ $("fsRes").innerHTML=`<div class="sphint">Enter an amount to see how it could grow.</div>`; return; }
   const put=L+m*y*12, proj=growLump(L,r,y)+fvm(m,r,y), gain=proj-put;
   $("fsRes").innerHTML=`<div class="simres"><div><small>Total you put in</small><b>${peso(put)}</b></div>
     <div class="${gain>=0?"hit":"miss"}"><small>Estimated value in Year ${y}</small><b>${peso(proj)}</b></div>
     <div style="grid-column:1/-1" class="${gain>=0?"hit":"miss"}"><small>Estimated gain (not guaranteed)</small><b style="font-size:15px">${gain>=0?"+":""}${peso(gain)}</b></div></div>`;
-  $("fsChart").style.display=""; $("fsLeg").style.display=""; $("fsChart").innerHTML=growthChart(y,r,L,m);
 }
 function closeFund(){ closePage("fv"); }
 
